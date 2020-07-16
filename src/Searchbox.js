@@ -6,6 +6,11 @@ function Searchbox({ dispatchCountries }) {
     fetch("https://restcountries.eu/rest/v2/name/" + searchString)
       .then((res) => res.json())
       .then((data) => {
+        if(data.status === 404) {
+          console.log(data)
+          alert("Invalid string")
+          return
+        }
         dispatchCountries({ type: "UPDATE", payload: data });
       })
       .catch((err) => {
