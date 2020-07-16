@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CountryCard from "./CountryCard";
+import { Pagination } from "@material-ui/lab";
 
 function ContentDisplay({
   countries,
@@ -35,19 +36,53 @@ function ContentDisplay({
     return false;
   };
 
+  const [paginationData, setPaginationData] = useState({count: 1 , current: 1});
+
+  useEffect(() => {
+    var data = countries
+      .filter(
+        (data) =>
+          data.population >= filteredPopulation[0] &&
+          data.population <= filteredPopulation[1]
+      )
+      .filter((data) => checkLanguage(data.languages))
+      .filter((data) => checkCurrency(data.currencies));
+    console.log(data.length);
+    setPaginationData({count : data.length , current : paginationData.current });
+  }, [filteredCurrencies, filteredLanguages, filteredPopulation, countries]);
+
   return (
     <>
-      {countries
-        .filter(
-          (data) =>
-            data.population >= filteredPopulation[0] &&
-            data.population <= filteredPopulation[1]
-        )
-        .filter((data) => checkLanguage(data.languages))
-        .filter((data) => checkCurrency(data.currencies))
-        .map((e) => (
-          <CountryCard countries={e} />
-        ))}
+      <Pagination
+        count={paginationData.count === 0 ? 1 : Math.ceil(paginationData.count / 10)}
+        shape="rounded"
+        onChange={(e, p) => {
+          console.log(e, p);
+          setPaginationData({count : paginationData.count , current : p });
+        }}
+      />
+      <div className="row">
+        {countries
+          .filter(
+            (data) =>
+              data.population >= filteredPopulation[0] &&
+              data.population <= filteredPopulation[1]
+          )
+          .filter((data) => checkLanguage(data.languages))
+          .filter((data) => checkCurrency(data.currencies))
+          .filter((data, index) => {
+            if (
+             ( index >= (paginationData.current - 1) * 10 ) &&
+             ( index < paginationData.current * 10 )
+            ){ console.log("true" , paginationData.current)
+              return true; }
+          else{console.log("false" ,paginationData.current)
+            return false;}
+          })
+          .map((e) => (
+            <CountryCard countries={e} />
+          ))}
+      </div>
     </>
   );
 }
