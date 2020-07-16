@@ -1,4 +1,4 @@
-import React ,{useEffect,useReducer} from 'react';
+import React ,{useEffect,useReducer,useState} from 'react';
 import './App.css';
 import Searchbox from "./Searchbox"
 import Filter from './Filter'
@@ -20,7 +20,17 @@ function App() {
     }
   }
 
-  const [ countries , dispatchCountries ] = useReducer(reducerCountries, [] ) 
+  const [ countries , dispatchCountries ] = useReducer(reducerCountries, [] )
+
+  const [filteredLanguages, setFilteredLanguages] = useState([]);
+  const [filteredCurrencies, setFilteredCurrencies] = useState([]);
+  const [filteredPopulation, setFilteredPopulation] = useState([0,1]);
+
+  const props = {
+    filteredLanguages, setFilteredLanguages,
+    filteredCurrencies, setFilteredCurrencies,
+    filteredPopulation, setFilteredPopulation
+  }
 
   return (
     <div >
@@ -28,10 +38,12 @@ function App() {
      <div className="container-fluid">
        <div className="row">
            <div className="col-3">
-             <Filter />
+             <Filter countries={countries} {... props} />
              </div>
              <div className="col-9">
-             <Content countries={countries} />
+            <div className="row">
+             <Content countries={countries} {...props} />
+              </div>
              </div>
         </div>
        </div>
