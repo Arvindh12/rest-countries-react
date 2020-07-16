@@ -52,8 +52,10 @@ function ContentDisplay({
   }, [filteredCurrencies, filteredLanguages, filteredPopulation, countries]);
 
   return (
-    <>
+    <> <div className="row">
       <Pagination
+      size="large"
+      className="mx-auto"
         count={paginationData.count === 0 ? 1 : Math.ceil(paginationData.count / 10)}
         shape="rounded"
         onChange={(e, p) => {
@@ -61,6 +63,8 @@ function ContentDisplay({
           setPaginationData({count : paginationData.count , current : p });
         }}
       />
+
+</div>
       <div className="row">
         {countries
           .filter(

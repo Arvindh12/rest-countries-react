@@ -37,13 +37,13 @@ function App() {
      <Searchbox dispatchCountries={dispatchCountries} />
      <div className="container-fluid">
        <div className="row">
-           <div className="col-3">
+           <div className="col-md-3">
              <Filter countries={countries} {... props} />
              </div>
-             <div className="col-9">
-            <div className="row">
+             <div className="col-md-9">
+            
              <Content countries={countries} {...props} />
-              </div>
+              
              </div>
         </div>
        </div>

@@ -4,7 +4,7 @@ function CountryCard({countries}) {
     // countries.languages.map((lang) => lang.name)
     return (
         
-            <div className="card mx-3 my-3" style={{width: "18rem"}} >
+            <div className="card mx-auto my-3" style={{width: "18rem"}} >
  <img src={countries.flag} className="card-img-top" alt="..." />
  <div className="card-body">
    <h5 className="card-title">{countries.name}</h5>

@@ -91,13 +91,14 @@ function Filter({ countries , filteredLanguages,setFilteredLanguages,filteredCur
 if(countries.length > 0)
   return (
     <div>
-      ....Population
+      <h4 className="my-2">Population </h4>
     
       <Slider setFilteredPopulation={setFilteredPopulation} population={population}></Slider>
-      <div>
-        {population[0]} to {population[1]}
+      <div className="text-center">
+        {filteredPopulation[0]}  -  {filteredPopulation[1]}
       </div>
-      Language
+      
+      <h4 className="my-2 ">Language</h4>
       <div style={{ height: "250px", overflow: "auto" }}>
         {languages.map((e, index) => (
           <div className="form-check">
@@ -115,7 +116,7 @@ if(countries.length > 0)
           </div>
         ))}
       </div>
-      currencies
+      <h4 className="my-2">Currency</h4>
       <div style={{ height: "250px", overflow: "auto" }}>
         {currencies.map((e, index) => (
           <div className="form-check">
